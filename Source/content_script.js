@@ -29,12 +29,28 @@ function walk(node)
 
 function handleText(textNode) 
 {
-	var v = textNode.nodeValue;
 
-	v = v.replace(/\bbrowser\b/g, "Bowser");
-	v = v.replace(/\bBrowser\b/g, "Bowser");
+	var parent = textNode.parentNode;
 
-	textNode.nodeValue = v;
+	var splitted = textNode.nodeValue.split("browser");
+
+	var newNode = parent.create
+
+	for(var i=0; i< splitted.length - 1; i++) {
+	
+		parent.insertBefore(document.createTextNode(splitted[i]), textNode);
+
+		var img = document.createElement('img');
+		img.src = chrome.extension.getURL("bowser.png");
+		parent.insertBefore(img, textNode);
+
+		parent.insertBefore(document.createTextNode("Bowser"), textNode);
+	
+	}
+
+	parent.insertBefore(document.createTextNode(splitted[splitted.length-1]), textNode);
+
+	textNode.remove();
 }
 
 
